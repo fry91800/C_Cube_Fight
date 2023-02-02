@@ -7,6 +7,4 @@ struct action
     struct effect *effect;
 };
 
-bool fill_conditions(struct condition *condition);
-
 #endif /* !ACTION_H */

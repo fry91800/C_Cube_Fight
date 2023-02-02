@@ -22,6 +22,7 @@ int main(int argc, char *argv[])
 
 
     //Game init
+    int key_just_pressed_state = KEY_JUST_PRESSED;
     struct game *game = create_game();
     struct player *player1 = create_player();
     struct player **players = calloc(3, sizeof(struct player *));
@@ -37,7 +38,7 @@ int main(int argc, char *argv[])
     game->effects = effects;
     actions[0] = calloc(1, sizeof(struct action));
     struct effect *player1_go_right = create_effect(player1, player1->speed, MOVEX);
-    struct condition *player1_has_right_pressed = create_condition(player1, KEY_PRESSED, RIGHT_KEY_PRESSED);
+    struct condition *player1_has_right_pressed = condition_create(&player1->right_key_state, &key_just_pressed_state, GREATER_EQUAL);
     actions[0]->start_condition = player1_has_right_pressed;
     actions[0]->effect = player1_go_right;
     //Game init end
@@ -55,7 +56,7 @@ int main(int argc, char *argv[])
         //apply_effect(player1_go_right->player, player1_go_right->info, player1_go_right->effect_type);
         apply_physics(game->players, game->items, game->boundaries);
 		display(renderer, player1);
-        player1->x += 1;
+        //player1->x += 1;
 		c++;
 		SDL_Delay(5);
 

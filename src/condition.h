@@ -2,39 +2,39 @@
 #define CONDITION_H
 
 #include <stdbool.h>
+
+//Struct condition record a test to be made on 2 int pointers
 enum key_state
 {
     KEY_RELEASED,
     KEY_JUST_RELEASED,
-    KEY_PRESSED,
     KEY_JUST_PRESSED,
+    KEY_PRESSED,
 };
 enum condition_type
 {
-    RIGHT_KEY_RELEASED,
-    RIGHT_KEY_JUST_RELEASED,
-    RIGHT_KEY_PRESSED,
-    RIGHT_KEY_JUST_PRESSED,
-    DISTANCE_MIN,
-    DISTANCE_MAX,
-    FLOOR,
-    CD,
-    HEALTH_MIN,
-    HEALTH_MAX
+    EQUAL,
+    LOWER,
+    LOWER_EQUAL,
+    GREATER,
+    GREATER_EQUAL
 };
 
 struct condition
 {
-    struct player* player;
-    int info;
-    enum condition_type condition_type;
-	bool (*condition_function)(struct player *, int, enum condition_type);
+    int *value;
+    int *compared_to;
+	bool (*condition_function)(int*, int*);
 	struct condition *condition;
 };
 
-struct condition *create_health_min_condition(struct player *player, int health);
-bool test_health_min_condition(struct player *player, int health);
-struct condition *create_condition(struct player *player, int info, enum condition_type condition_type);
-bool test_condition(struct player *player, int info, enum condition_type condition_type);
+bool condition_test_equal(int *value, int *compared_to);
+bool condition_test_lower(int *value, int *compared_to);
+bool condition_test_lower_equal(int *value, int *compared_to);
+bool condition_test_greater(int *value, int *compared_to);
+bool condition_test_greater_equal(int *value, int *compared_to);
+bool condition_test(struct condition *condition);
+struct condition *condition_create(int *value, int *compared_to, enum condition_type condition_type);
+bool fill_conditions(struct condition *condition);
 
 #endif /* !CONDITION_H */

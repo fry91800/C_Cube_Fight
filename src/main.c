@@ -39,8 +39,8 @@ int main(int argc, char *argv[])
     actions[0] = calloc(1, sizeof(struct action));
     struct effect *player1_go_right = create_effect(player1, player1->speed, MOVEX);
     struct condition *player1_has_right_pressed = condition_create(&player1->right_key_state, &key_just_pressed_state, GREATER_EQUAL);
-    actions[0]->start_condition = player1_has_right_pressed;
-    actions[0]->effect = player1_go_right;
+    actions[0]->start_conditions[0] = player1_has_right_pressed;
+    actions[0]->effects[0] = player1_go_right;
     //Game init end
 	while(c < 500)
 	{
